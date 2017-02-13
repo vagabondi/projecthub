@@ -6,6 +6,7 @@ class Project {
   private $description;
   private $date;
   private $project;
+  private $assets = [];
   private $conn;
 
   function __construct($conn) {
@@ -23,6 +24,18 @@ class Project {
 
   function getDescription() {
     return $this->description;
+  }
+
+  function getDate() {
+    return $this->date;
+  }
+
+  function getProject() {
+    return $this->project;
+  }
+
+  function getAssets() {
+    return $this->assets;
   }
 
   private function getConn() {
@@ -44,6 +57,22 @@ class Project {
     }
     $this->description = $conn->escape_string($text);
 
+  }
+
+  function setDate($text) {
+    $conn = $this->getConn();
+    if(strlen($text) === 0) {
+      return false;
+    }
+    $this->name = $conn->escape_string($text);
+  }
+
+  function setProject($text) {
+    $conn = $this->getConn();
+    if(strlen($text) === 0) {
+      return false;
+    }
+    $this->description = $conn->escape_string($text);
   }
 
   public function addNewProject($name, $desc) {

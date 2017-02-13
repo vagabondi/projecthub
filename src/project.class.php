@@ -4,12 +4,14 @@ class Project {
   private $id;
   private $name;
   private $description;
+  private $events = [];
   private $conn;
 
   function __construct($conn) {
     $this->id = -1;
     $this->name;
     $this->description;
+
     $this->conn = $conn;
   }
 
@@ -19,6 +21,10 @@ class Project {
 
   function getDescription() {
     return $this->description;
+  }
+
+  function getEvents() {
+    return $this->events;
   }
 
   private function getConn() {
