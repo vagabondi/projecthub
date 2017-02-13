@@ -6,9 +6,9 @@ if ($conn->connect_error) {
     die("Polaczenie nieudane. Blad: " . $conn->connect_error);
 }
 
-// include_once (__DIR__. '../../classes/user.class.php');
-//
-// $user = new User();
+include_once (__DIR__. '../../src/project.class.php');
+
+$project = new Project($conn);
 //
 // include_once (__DIR__. '../../classes/tweet.class.php');
 //
