@@ -67,38 +67,30 @@ class Project {
     $this->name = $conn->escape_string($text);
   }
 
-  function setProject($text) {
+  function setProject($project_id) {
     $conn = $this->getConn();
-    if(strlen($text) === 0) {
+    $sql = "SELECT id FROM projects";
+    $result = mysqli_query($conn, $sql);
+    if ($result->num_rows > 0){
+      $projects = [];
+      while($row = $result->fetch_assoc()) {
+        $projects[] = $row['id'];
+      }
+    }
+    if(!in_array($project_id, $projects)) {
       return false;
     }
-    $this->description = $conn->escape_string($text);
+    $this->project = $project_id;
   }
 
-  public function addNewProject($name, $desc) {
+  public function addNewEvent($name, $desc, $project_id) {
     $this->setName($name);
     $this->setDescription($desc);
+    $this->setProject($project_id);
     $conn = $this->getConn();
 
-    $sql = "INSERT INTO projects(name, description) VALUES ('$this->name', '$this->description')";
+    $sql = "INSERT INTO events(name, description, project_id) VALUES ('$this->name', '$this->description', $this->project_id)";
     $conn->query($sql);
   }
 
-  public function getProjects($element) {
-    $sql = "SELECT*FROM projects";
-    $conn = $this->getConn();
-    $result = mysqli_query($conn, $sql);
-
-    if ($result->num_rows > 0 && $element==='list'){
-      while($row = $result->fetch_assoc()) {
-        include (__DIR__ .'/templates/projects_list_item.php');
-      }
-    } elseif($element==='panel') {
-      $projects_names = [];
-      while($row = $result->fetch_assoc()) {
-        $projects_names[$row['id']] = $row['name'];
-      }
-      include (__DIR__ .'/templates/panel.php');
-    }
-  }
 }
