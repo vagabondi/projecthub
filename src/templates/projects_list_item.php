@@ -17,7 +17,7 @@
    </div>
  </div>
  <footer class="card-footer">
-   <a class="card-footer-item" href="index.php?page=singleproject&item_id=<?php echo $row['id']; ?>">Show</a>
+   <a class="card-footer-item" href="index.php?page=single&project=<?php echo $row['id']; ?>">Show</a>
    <!-- <a class="card-footer-item">Edit</a>
    <a class="card-footer-item">Delete</a> -->
  </footer>

@@ -3,7 +3,7 @@
     Projects
   </p>
   <?php foreach ($projects_names as $id => $project) : ?>
-    <a href="index.php?page=singleproject&item_id=<?php echo $id; ?>" class="panel-block is-active">
+    <a href="index.php?page=single&project=<?php echo $id; ?>" class="panel-block is-active">
       <span class="panel-icon">
         <i class="fa fa-book"></i>
       </span>

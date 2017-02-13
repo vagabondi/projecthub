@@ -4,14 +4,14 @@ class Project {
   private $id;
   private $name;
   private $description;
-  private $events = [];
+  private $events;
   private $conn;
 
   function __construct($conn) {
     $this->id = -1;
     $this->name;
     $this->description;
-    $this->events;
+    $this->events = [];
     $this->conn = $conn;
   }
 
@@ -44,11 +44,13 @@ class Project {
       $events = [];
       while($row = $result->fetch_assoc()) {
         $events[] = [
-          'id' => $rows['id'],
-          'description' => $rows['description']
-        ]
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'description' => $row['description']
+        ];
       }
     }
+
     $this->events = $events;
   }
 
@@ -62,10 +64,11 @@ class Project {
         $projects[] = $row['id'];
       }
     }
-    if(!in_array($project_id, $projects)) {
+    if(!in_array($id, $projects)) {
+
       return false;
     }
-    $this->id = $project_id;
+    $this->id = $id;
   }
 
   function setName($text) {
@@ -113,9 +116,9 @@ class Project {
   }
 
   public function showEvents($id) {
+    $this->setId($id);
     $this->setEvents();
     $events = $this->getEvents();
-
     foreach ($events as $event) {
       include (__DIR__ .'/templates/events_list_item.php');
     }
